@@ -9,6 +9,7 @@ public class Game {
 	private PlayingPiece playingPiece;
 	private Player currentPlayer;
 	private final Scanner scanner;
+	private GameStatus gameStatus;
 //	private final Map<Piece, Player> piecePlayerMap;
 
 	public Game()
@@ -18,6 +19,7 @@ public class Game {
 		board = new Board(3, 3);
 		playingPiece = new PlayingPiece(new PlayingPieceFactory());
 		playerList = new ArrayList<>();
+		gameStatus = GameStatus.UNDECIDED;
 //		piecePlayerMap = new HashMap<>();
 
 		// Player 1 Setup
@@ -37,32 +39,25 @@ public class Game {
 		System.out.println("Choose your Piece(X, O): ");
 		PieceType player2PieceType = PieceType.valueOf(scanner.nextLine());
 		Piece player2Piece = playingPiece.getPiece(player2PieceType);
-		Player player2 = new Player(player1Name, player2Piece, board);
+		Player player2 = new Player(player2Name, player2Piece, board);
 		playerList.add(player2);
 //		piecePlayerMap.put(player2Piece, player2);
 	}
 
 	public void start() throws Exception {
 		while(true) {
-			GameStatus gameStatus = checkStatus();
 			switch (gameStatus) {
 				case UNDECIDED -> {
 					nextTurn();
-					System.out.println(currentPlayer.getName() + " make your move (row, col): ");
+					System.out.println(currentPlayer.getName() + " make your move (row,col): ");
 					String[] userInput = scanner.nextLine().split(",");
-					scanner.close();
 					int userInputRow = Integer.parseInt(userInput[0]);
 					int userInputColumn = Integer.parseInt(userInput[1]);
-					if (!currentPlayer.play(userInputRow, userInputColumn)) {
-						System.out.println("Invalid move! Game over!");
-						System.out.println(currentPlayer.getName() + " please make your move (row, col): ");
-						userInput = scanner.nextLine().split(",");
-						scanner.close();
-						userInputRow = Integer.parseInt(userInput[0]);
-						userInputColumn = Integer.parseInt(userInput[1]);
-						if (!currentPlayer.play(userInputRow, userInputColumn)) {
-							throw new Exception("Invalid move! Game over!");
-						}
+					if (currentPlayer.play(userInputRow, userInputColumn)) {
+						gameStatus = checkStatus();
+					}
+					else{
+						throw new Exception("Invalid move! Game over!");
 					}
 				}
 				case WIN -> {

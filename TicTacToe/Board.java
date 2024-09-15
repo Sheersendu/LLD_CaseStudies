@@ -26,6 +26,19 @@ public class Board {
 	}
 
 	public GameStatus checkBoardStatus() {
+		int filledCellsCount = 0;
+		for(int row = 0; row<totalRows; row++) {
+			for (int col = 0; col < totalColumns; col++) {
+				if (this.board.get(row).get(col).getPiece() != null)
+				{
+					filledCellsCount += 1;
+				}
+			}
+		}
+		if (filledCellsCount == (totalColumns*totalRows))
+		{
+			return  GameStatus.DRAW;
+		}
 		// check for all rows
 		for(int row = 0; row<totalRows; row++) {
 			Piece firstColumn = this.board.get(row).get(0).getPiece();
@@ -58,19 +71,6 @@ public class Board {
 		if (topRight == middlePiece && middlePiece == bottomLeft && topRight != null && middlePiece != null && bottomLeft != null)
 		{
 			return  GameStatus.WIN;
-		}
-		int filledCellsCount = 0;
-		for(int row = 0; row<totalRows; row++) {
-			for (int col = 0; col < totalColumns; col++) {
-				if (this.board.get(row).get(col) != null)
-				{
-					filledCellsCount += 1;
-				}
-			}
-		}
-		if (filledCellsCount == (totalColumns*totalRows))
-		{
-			return  GameStatus.DRAW;
 		}
 		return GameStatus.UNDECIDED;
 	}
