@@ -1,19 +1,22 @@
 package TicTacToe;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
 public class Player {
+	@Getter
 	public String name;
 	public Piece piece;
 	public Board board;
 
-	public void play(int rowIndex, int columnIndex) throws Exception {
+	public boolean play(int rowIndex, int columnIndex) {
 		if (validatePlayerMove(rowIndex, columnIndex))
 		{
 			this.board.getBoard().get(rowIndex).get(columnIndex).setPiece(piece);
+			return true;
 		}
-		throw new Exception("Invalid move! Game over!");
+		return false;
 	}
 
 	private boolean validatePlayerMove(int rowIndex, int columnIndex)
