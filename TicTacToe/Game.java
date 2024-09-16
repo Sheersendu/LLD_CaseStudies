@@ -6,7 +6,7 @@ public class Game {
 	private Board board;
 	private List<Player> playerList;
 	private int currentPlayerIndex;
-	private PlayingPiece playingPiece;
+	private PlayingPieceFactory playingPieceFactory;
 	private Player currentPlayer;
 	private final Scanner scanner;
 	private GameStatus gameStatus;
@@ -17,9 +17,9 @@ public class Game {
 		scanner = new Scanner(System.in);
 		System.out.println("------Welcome to TicTacToe Game------");
 		board = new Board(3, 3);
-		playingPiece = new PlayingPiece(new PlayingPieceFactory());
+		playingPieceFactory = new PlayingPieceFactory();
 		playerList = new ArrayList<>();
-		gameStatus = GameStatus.UNDECIDED;
+		gameStatus = GameStatus.INPROGRESS;
 //		piecePlayerMap = new HashMap<>();
 
 		// Player 1 Setup
@@ -27,7 +27,7 @@ public class Game {
 		String player1Name = scanner.nextLine();
 		System.out.println("Choose your Piece(X, O): ");
 		PieceType player1PieceType = PieceType.valueOf(scanner.nextLine());
-		Piece player1Piece = playingPiece.getPiece(player1PieceType);
+		Piece player1Piece = playingPieceFactory.getPiece(player1PieceType);
 		Player player1 = new Player(player1Name, player1Piece, board);
 		playerList.add(player1);
 //		piecePlayerMap.put(player1Piece, player1);
@@ -38,7 +38,7 @@ public class Game {
 		String player2Name = scanner.nextLine();
 		System.out.println("Choose your Piece(X, O): ");
 		PieceType player2PieceType = PieceType.valueOf(scanner.nextLine());
-		Piece player2Piece = playingPiece.getPiece(player2PieceType);
+		Piece player2Piece = playingPieceFactory.getPiece(player2PieceType);
 		Player player2 = new Player(player2Name, player2Piece, board);
 		playerList.add(player2);
 //		piecePlayerMap.put(player2Piece, player2);
@@ -48,7 +48,7 @@ public class Game {
 		while(true) {
 			this.board.displayBoard();
 			switch (gameStatus) {
-				case UNDECIDED -> {
+				case INPROGRESS -> {
 					nextTurn();
 					System.out.println(currentPlayer.getName() + " make your move (row,col): ");
 					String[] userInput = scanner.nextLine().split(",");
@@ -77,7 +77,7 @@ public class Game {
 		}
 	}
 
-	public void nextTurn()
+	private void nextTurn()
 	{
 		currentPlayer = playerList.get(currentPlayerIndex);
 		currentPlayerIndex ^= 1;

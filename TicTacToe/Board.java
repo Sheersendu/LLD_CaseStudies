@@ -74,7 +74,7 @@ public class Board {
 		{
 			return  GameStatus.DRAW;
 		}
-		return GameStatus.UNDECIDED;
+		return GameStatus.INPROGRESS;
 	}
 
 	public void displayBoard()
