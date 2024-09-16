@@ -26,19 +26,6 @@ public class Board {
 	}
 
 	public GameStatus checkBoardStatus() {
-		int filledCellsCount = 0;
-		for(int row = 0; row<totalRows; row++) {
-			for (int col = 0; col < totalColumns; col++) {
-				if (this.board.get(row).get(col).getPiece() != null)
-				{
-					filledCellsCount += 1;
-				}
-			}
-		}
-		if (filledCellsCount == (totalColumns*totalRows))
-		{
-			return  GameStatus.DRAW;
-		}
 		// check for all rows
 		for(int row = 0; row<totalRows; row++) {
 			Piece firstColumn = this.board.get(row).get(0).getPiece();
@@ -72,6 +59,40 @@ public class Board {
 		{
 			return  GameStatus.WIN;
 		}
+
+		// Check for draw status
+		int filledCellsCount = 0;
+		for(int row = 0; row<totalRows; row++) {
+			for (int col = 0; col < totalColumns; col++) {
+				if (this.board.get(row).get(col).getPiece() != null)
+				{
+					filledCellsCount += 1;
+				}
+			}
+		}
+		if (filledCellsCount == (totalColumns*totalRows))
+		{
+			return  GameStatus.DRAW;
+		}
 		return GameStatus.UNDECIDED;
+	}
+
+	public void displayBoard()
+	{
+		for(int row = 0; row<totalRows; row++) {
+			for(int col = 0; col<totalColumns; col++)
+			{
+				System.out.print(" | ");
+				Piece piece = board.get(row).get(col).getPiece();
+				if(piece == null) {
+					System.out.print(" ");
+				}
+				else {
+					System.out.print(piece.type);
+				}
+				System.out.print(" | ");
+			}
+			System.out.println();
+		}
 	}
 }

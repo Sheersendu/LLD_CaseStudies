@@ -46,6 +46,7 @@ public class Game {
 
 	public void start() throws Exception {
 		while(true) {
+			this.board.displayBoard();
 			switch (gameStatus) {
 				case UNDECIDED -> {
 					nextTurn();
@@ -61,11 +62,15 @@ public class Game {
 					}
 				}
 				case WIN -> {
-					System.out.println("Winner is :" + currentPlayer.getName());
+					System.out.println("---------------------");
+					System.out.println("Winner is: " + currentPlayer.getName());
+					System.out.println("---------------------");
 					return;
 				}
 				case DRAW -> {
+					System.out.println("---------------------");
 					System.out.println("Its a draw!");
+					System.out.println("---------------------");
 					return;
 				}
 			}
