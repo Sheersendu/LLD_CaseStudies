@@ -25,5 +25,6 @@ public class CashDepositState extends ATMState {
 		}
 		atm.addMoney(userInputNotes);
 		card.getBankAccount().depositMoney(totalAmount);
+		super.exit(atm);
 	}
 }

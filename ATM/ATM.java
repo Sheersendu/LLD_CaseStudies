@@ -6,9 +6,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class ATM {
-	@Getter
-	@Setter
 	private ATMState atmState;
 	private int amount;
 	private int twoThousandRupeeNotes;

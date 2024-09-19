@@ -13,6 +13,6 @@ public class BalanceCheckState extends ATMState
 		else {
 			System.out.println("Incorrect pin!");
 		}
-		exit(atm);
+		super.exit(atm);
 	}
 }
