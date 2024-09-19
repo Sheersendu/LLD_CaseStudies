@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CashDepositState extends ATMState {
 
 	@Override
-	void depositMoney(ATM atm, Card card) {
+	public void depositMoney(ATM atm, Card card) {
 		Scanner scanner = new Scanner(System.in);
 		List<Integer> userInputNotes = new ArrayList<>();
 		System.out.println("Please enter total number of currency bills");
@@ -25,6 +25,7 @@ public class CashDepositState extends ATMState {
 		}
 		atm.addMoney(userInputNotes);
 		card.getBankAccount().depositMoney(totalAmount);
+		System.out.println("Your available balance is: " + card.getBankAccount().getBalance());
 		super.exit(atm);
 	}
 }

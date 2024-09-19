@@ -5,7 +5,7 @@ import ATM.*;
 public class BalanceCheckState extends ATMState
 {
 	@Override
-	void checkBalance(ATM atm, Card card, Integer pin) {
+	public void checkBalance(ATM atm, Card card, Integer pin) {
 		if(card.validatePin(pin))
 		{
 			System.out.println("Your account balance is Rs. " + card.getBankAccount().getBalance());

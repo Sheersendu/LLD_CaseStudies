@@ -4,32 +4,32 @@ import ATM.*;
 
 public abstract class ATMState {
 
-	void insertCard(ATM atm, Card card)
+	public void insertCard(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void selectOperation(ATM atm, Card card)
+	public void selectOperation(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void withdrawMoney(ATM atm, Card card, Integer amount)
+	public void withdrawMoney(ATM atm, Card card, Integer amount)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void depositMoney(ATM atm, Card card)
+	public void depositMoney(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void checkBalance(ATM atm, Card card, Integer pin)
+	public void checkBalance(ATM atm, Card card, Integer pin)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void changePin(ATM atm, Card card, Integer OlderPin, Integer newPin)
+	public void changePin(ATM atm, Card card, Integer OlderPin, Integer newPin)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}

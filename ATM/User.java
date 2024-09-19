@@ -9,4 +9,8 @@ public class User {
 	String name;
 	Card card;
 	BankAccount bankAccount;
+	public User(String name)
+	{
+		this.name = name;
+	}
 }

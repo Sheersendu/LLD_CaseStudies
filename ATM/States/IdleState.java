@@ -5,8 +5,17 @@ import ATM.*;
 
 public class IdleState extends ATMState {
 
-	void insertCard(ATM atm, Card card)
+	public IdleState()
 	{
-		System.out.println("Welcome : " + card.getCardHolderName());
+		System.out.println("----------------------------");
+		System.out.println("Welcome To Banking Services ");
+		System.out.println("----------------------------");
+	}
+
+	@Override
+	public void insertCard(ATM atm, Card card)
+	{
+		System.out.println("Card is inserted");
+		atm.setAtmState(new HasCardState());
 	}
 }

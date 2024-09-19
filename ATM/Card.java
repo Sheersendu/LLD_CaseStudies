@@ -11,7 +11,6 @@ public class Card {
 	@Setter
 	Integer pin;
 	Integer cvv;
-	String cardHolderName;
 	BankAccount bankAccount;
 
 	public boolean validatePin(int pin)

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CashWithdrawalState extends ATMState {
 	@Override
-	void withdrawMoney(ATM atm, Card card, Integer amount) {
+	public void withdrawMoney(ATM atm, Card card, Integer amount) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter Pin: ");
 		int userPin = scanner.nextInt();
@@ -16,6 +16,10 @@ public class CashWithdrawalState extends ATMState {
 			if(card.getBankAccount().getBalance() < amount)
 			{
 				System.out.println("Insufficient account balance!");
+			}
+			else if(atm.getAmount() < amount)
+			{
+				System.out.println("Unable to process your request at the moment!");
 			}
 			else
 			{

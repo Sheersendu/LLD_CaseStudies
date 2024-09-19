@@ -1,6 +1,7 @@
 package ATM;
 
 import ATM.States.ATMState;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ATM {
 	private ATMState atmState;
 	private int amount;

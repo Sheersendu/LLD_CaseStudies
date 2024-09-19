@@ -5,8 +5,9 @@ import ATM.*;
 import java.util.Scanner;
 
 public class HasCardState extends ATMState {
+
 	@Override
-	void selectOperation(ATM atm, Card card) {
+	public void selectOperation(ATM atm, Card card) {
 		System.out.println("Please choose your operation: \n 1. Cash Withdrawal\n 2. Cash Deposit\n 3. Balance Check\n 4. Pin Change");
 		Scanner scanner = new Scanner(System.in);
 		int userInput = scanner.nextInt();
