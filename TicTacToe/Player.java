@@ -21,10 +21,6 @@ public class Player {
 
 	private boolean validatePlayerMove(int rowIndex, int columnIndex)
 	{
-		if (rowIndex < 0 || rowIndex >= board.getTotalRows() || columnIndex < 0 || columnIndex >= board.getTotalColumns())
-		{
-			return this.board.getBoard().get(rowIndex).get(columnIndex) == null;
-		}
-		return true;
+		return rowIndex >= 0 && rowIndex < board.getTotalRows() && columnIndex >= 0 && columnIndex < board.getTotalColumns() && this.board.getBoard().get(rowIndex).get(columnIndex).getPiece() == null;
 	}
 }
