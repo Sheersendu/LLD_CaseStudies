@@ -13,11 +13,6 @@ public abstract class ATMState {
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
-	
-	void authenticatePin(ATM atm, Card card, Integer pin)
-	{
-		System.out.println("Oops! Something went wrong!");
-	}
 
 	void withdrawMoney(ATM atm, Card card, Integer amount)
 	{

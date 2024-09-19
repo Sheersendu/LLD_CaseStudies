@@ -8,7 +8,10 @@ public class PinChangeState extends ATMState {
 		if(card.validatePin(OlderPin))
 		{
 			card.setPin(newPin);
-
+			System.out.println("Pin reset successfully!");
+		}
+		else {
+			System.out.println("Incorrect Pin!");
 		}
 		super.exit(atm);
 	}

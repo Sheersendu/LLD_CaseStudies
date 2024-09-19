@@ -16,7 +16,7 @@ public class ATM {
 	private int twoHundredRupeeNotes;
 	private int oneHundredRupeeNotes;
 
-	void addMoney(List<Integer> notes) {
+	public void addMoney(List<Integer> notes) {
 		for(int i = 0; i < notes.size(); i++)
 		{
 			int note = notes.get(i);
