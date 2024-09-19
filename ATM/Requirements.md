@@ -9,13 +9,12 @@
 
 # Approach
 1. We will use state design pattern for different ATM States, states are:
-	1. Idle State
-	2. Has Card State
-	3. Pin Authentication State
-	4. Selection State
-	5. CashWithdrawal State
-	6. CheckBalance State
-	7. PinChange State
-	8. Exit State
+    1. Idle State (insertCard)
+    2. Selection State (select Operation)
+    3. Pin Authentication State (authenticatePin)
+    4. CashWithdrawal State
+    5. CheckBalance State
+    6. PinChange State
+    7. Exit State
 
 2. We will use chain or responsibility pattern for cash withdrawal

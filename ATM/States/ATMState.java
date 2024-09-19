@@ -1,46 +1,47 @@
 package ATM.States;
 
-import ATM.ATM;
+import ATM.*;
 
 public abstract class ATMState {
 
-	void IdleState(ATM atm)
+	void insertCard(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void HasCardState(ATM atm)
+	void selectOperation(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 	
-	void PinAuthenticationState(ATM atm)
+	void authenticatePin(ATM atm, Card card, Integer pin)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void SelectionState(ATM atm)
+	void withdrawMoney(ATM atm, Card card, Integer amount)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void CashWithdrawalState(ATM atm)
+	void depositMoney(ATM atm, Card card)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void CheckBalanceState(ATM atm)
+	void checkBalance(ATM atm, Card card, Integer pin)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void PinChangeState(ATM atm)
+	void changePin(ATM atm, Card card, Integer OlderPin, Integer newPin)
 	{
 		System.out.println("Oops! Something went wrong!");
 	}
 
-	void ExitState(ATM atm)
+	void exit(ATM atm)
 	{
-		System.out.println("Oops! Something went wrong!");
+		System.out.println("Please collect your card!");
+		atm.setAtmState(new IdleState());
 	}
 }
