@@ -36,6 +36,16 @@ public class Table {
 		this.rows.add(row);
 	}
 
+	public Row fetchRowData(String primaryKey) throws Exception
+	{
+		for (Row row : rows) {
+			if (row.getColumnValues()[0].equals(primaryKey)) {
+				return row;
+			}
+		}
+		throw new Exception("Row doesn't Exists!");
+	}
+
 	public void getRows()
 	{
 		for(int index = 0; index < rows.size(); index++)
