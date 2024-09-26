@@ -44,7 +44,7 @@ public class DatabaseManager {
 			table.deleteRow("Column3", "R1D3");
 			System.out.println("After Deleting: ");
 			table.getRows();
-//			table.deleteRow("R1D1");
+			table.deleteRow("Column3", "R1D3");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
