@@ -7,12 +7,12 @@ public class DatabaseManager {
 		Database database = new Database("MyDatabase");
 		Table table = database.createTable("Table 1");
 //		database.getTables();
-		table.addColumns("Column1, Column2, Column3");
+		table.addColumns("Column1,Column2,Column3");
 //		table.getColumnNames();
 
 		// Insert Row
-		table.insertData("R1D1, R1D2, R1D3");
-		table.insertData("R2D1, R2D2, R2D3");
+		table.insertData("R1D1,R1D2,R1D3");
+		table.insertData("R2D1,R2D2,R2D3");
 //		table.getRows();
 
 		// Fetch Row
@@ -25,14 +25,26 @@ public class DatabaseManager {
 			System.out.println(e.getMessage());
 		}
 
-		// Delete Row
+		// Delete Row based on primary key
+//		try {
+//			System.out.println("Before Deleting: ");
+//			table.getRows();
+//			table.deleteRow("R1D1");
+//			System.out.println("After Deleting: ");
+//			table.getRows();
+//			table.deleteRow("R1D1");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+
+		// Delete Row based on column name and value
 		try {
 			System.out.println("Before Deleting: ");
 			table.getRows();
-			table.deleteRow("R1D1");
+			table.deleteRow("Column3", "R1D3");
 			System.out.println("After Deleting: ");
 			table.getRows();
-			table.deleteRow("R1D1");
+//			table.deleteRow("R1D1");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -57,6 +57,23 @@ public class Table {
 		throw new Exception("Row cannot be deleted as it doesn't Exists!!");
 	}
 
+	public void deleteRow(String columnName, String columnValue) throws Exception
+	{
+		int columnIndex = this.columnNames.get(columnName);
+		boolean rowFound = false;
+		for (Row row : rows) {
+			String[] columnValues = row.getColumnValues();
+			if (columnValues[columnIndex].equals(columnValue)) {
+				this.rows.remove(row);
+				rowFound = true;
+			}
+		}
+		if(!rowFound)
+		{
+			throw new Exception("Row cannot be deleted as it doesn't Exists!!");
+		}
+	}
+
 	public void getRows()
 	{
 		for(int index = 0; index < rows.size(); index++)
