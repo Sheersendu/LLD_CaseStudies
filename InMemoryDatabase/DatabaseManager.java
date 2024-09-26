@@ -16,9 +16,23 @@ public class DatabaseManager {
 //		table.getRows();
 
 		// Fetch Row
+//		try {
+//			Row row1 = table.fetchRowData("R2D1");
+//			System.out.println(Arrays.stream(row1.getColumnValues()).toList());
+//			Row row2 = table.fetchRowData("R3D1");
+//			System.out.println(Arrays.stream(row2.getColumnValues()).toList());
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+
+		// Delete Row
 		try {
-			Row row = table.fetchRowData("R3D1");
-			System.out.println(Arrays.stream(row.getColumnValues()).toList());
+			System.out.println("Before Deleting: ");
+			table.getRows();
+			table.deleteRow("R1D1");
+			System.out.println("After Deleting: ");
+			table.getRows();
+			table.deleteRow("R1D1");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

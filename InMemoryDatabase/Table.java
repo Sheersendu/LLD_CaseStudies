@@ -46,6 +46,17 @@ public class Table {
 		throw new Exception("Row doesn't Exists!");
 	}
 
+	public void deleteRow(String primaryKey) throws Exception
+	{
+		for (Row row : rows) {
+			if (row.getColumnValues()[0].equals(primaryKey)) {
+				this.rows.remove(row);
+				return;
+			}
+		}
+		throw new Exception("Row cannot be deleted as it doesn't Exists!!");
+	}
+
 	public void getRows()
 	{
 		for(int index = 0; index < rows.size(); index++)
