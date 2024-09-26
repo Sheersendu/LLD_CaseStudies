@@ -13,7 +13,6 @@ public class Database {
 	{
 		this.tableList = new HashMap<>();
 		this.databaseName = databaseName;
-
 	}
 
 	public Table createTable(String tableName)
@@ -23,8 +22,18 @@ public class Database {
 		return table;
 	}
 
+	public void deleteTable(String tableName) throws Exception
+	{
+		if(this.tableList.get(tableName) != null)
+		{
+			this.tableList.remove(tableName);
+			return;
+		}
+		throw new Exception("Table doesn't exists!");
+	}
+
 	public void getTables()
 	{
-		System.out.println(tableList.keySet());
+		System.out.println(this.tableList.keySet());
 	}
 }

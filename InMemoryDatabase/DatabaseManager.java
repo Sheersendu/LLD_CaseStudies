@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class DatabaseManager {
 	public static void main(String[] args) {
 		Database database = new Database("MyDatabase");
-		Table table = database.createTable("Table 1");
+		Table table = database.createTable("Table1");
 //		database.getTables();
 		table.addColumns("Column1,Column2,Column3");
 //		table.getColumnNames();
@@ -45,6 +45,18 @@ public class DatabaseManager {
 			System.out.println("After Deleting: ");
 			table.getRows();
 			table.deleteRow("Column3", "R1D3");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		// Delete table
+		try {
+			System.out.println("Before Deleting: ");
+			database.getTables();
+			database.deleteTable("Table1");
+			System.out.println("After Deleting: ");
+			database.getTables();
+			database.deleteTable("Table1");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

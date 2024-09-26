@@ -6,7 +6,7 @@ Scope:
 4. Insert rows ✅
 5. Search functionality
 6. Delete rows ✅
-7. Delete table
+7. Delete table ✅
 
 Assumption:
 
