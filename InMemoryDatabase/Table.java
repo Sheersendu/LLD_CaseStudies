@@ -20,8 +20,8 @@ public class Table {
 		this.rows = new ArrayList<>();
 	}
 
-	public void addColumns(String userInputColumnNames)
-	{
+	public void addColumns(String userInputColumnNames) throws Exception {
+		userInputValidation(userInputColumnNames);
 		String[] columnNames = userInputColumnNames.split(",");
 		this.totalColumns = columnNames.length;
 		for(int index = 0; index < totalColumns; index++)
@@ -31,8 +31,8 @@ public class Table {
 		}
 	}
 
-	public void insertData(String userInput)
-	{
+	public void insertData(String userInput) throws Exception {
+		userInputValidation(userInput);
 		Row row = new Row(totalColumns);
 		row.insert(userInput);
 		String primaryKey = row.getColumnValues()[0];
@@ -46,6 +46,7 @@ public class Table {
 
 	public Row fetchRowData(String primaryKey) throws Exception
 	{
+		userInputValidation(primaryKey);
 		Row row = rowMap.get(primaryKey);
 		if (row == null) {
 			throw new Exception("Row with primary key " + primaryKey + " doesn't exist.");
@@ -55,6 +56,7 @@ public class Table {
 
 	public void deleteRow(String primaryKey) throws Exception
 	{
+		userInputValidation(primaryKey);
 		if (!this.rowMap.containsKey(primaryKey)) {
 			throw new Exception("Row cannot be deleted as it doesn't exist.");
 		}
@@ -64,6 +66,7 @@ public class Table {
 
 	public void deleteRow(String columnName, String columnValue) throws Exception
 	{
+		userInputValidation(columnName);
 		int columnIndex = this.columnNames.get(columnName);
 		boolean rowFound = false;
 		for (Row row : rows) {
@@ -136,11 +139,16 @@ public class Table {
 		return columnIndexes;
 	}
 
+	private void userInputValidation(String userInput) throws Exception
+	{
+		if (userInput == null || userInput.isEmpty()) {
+			throw new IllegalArgumentException("Provided value cannot be empty.");
+		}
+	}
+
 	public void getRows()
 	{
-		for(int index = 0; index < rows.size(); index++)
-		{
-			Row row = rows.get(index);
+		for (Row row : rows) {
 			System.out.println(Arrays.stream(row.getColumnValues()).toList());
 		}
 	}
