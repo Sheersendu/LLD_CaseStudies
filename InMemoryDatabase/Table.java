@@ -8,6 +8,7 @@ public class Table {
 	@Getter
 	private final String tableName;
 	private final List<Row> rows;
+	private final Map<String, Row> rowMap;
 	private int totalColumns;
 	private final HashMap<String, Integer> columnNames;
 
@@ -15,6 +16,7 @@ public class Table {
 	{
 		this.tableName = tableName;
 		this.columnNames = new HashMap<>();
+		this.rowMap = new HashMap<>();
 		this.rows = new ArrayList<>();
 	}
 
@@ -33,28 +35,31 @@ public class Table {
 	{
 		Row row = new Row(totalColumns);
 		row.insert(userInput);
+		String primaryKey = row.getColumnValues()[0];
+		if(this.rowMap.containsKey(primaryKey))
+		{
+			throw new IllegalArgumentException("Primary key already exists: " + primaryKey);
+		}
+		this.rowMap.put(primaryKey, row);
 		this.rows.add(row);
 	}
 
 	public Row fetchRowData(String primaryKey) throws Exception
 	{
-		for (Row row : rows) {
-			if (row.getColumnValues()[0].equals(primaryKey)) {
-				return row;
-			}
+		Row row = rowMap.get(primaryKey);
+		if (row == null) {
+			throw new Exception("Row with primary key " + primaryKey + " doesn't exist.");
 		}
-		throw new Exception("Row doesn't Exists!");
+		return row;
 	}
 
 	public void deleteRow(String primaryKey) throws Exception
 	{
-		for (Row row : rows) {
-			if (row.getColumnValues()[0].equals(primaryKey)) {
-				this.rows.remove(row);
-				return;
-			}
+		if (!this.rowMap.containsKey(primaryKey)) {
+			throw new Exception("Row cannot be deleted as it doesn't exist.");
 		}
-		throw new Exception("Row cannot be deleted as it doesn't Exists!!");
+		Row row = rowMap.remove(primaryKey);
+		rows.remove(row);
 	}
 
 	public void deleteRow(String columnName, String columnValue) throws Exception
