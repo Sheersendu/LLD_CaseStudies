@@ -1,10 +1,10 @@
 Scope:
 
 1. Create table ✅
-2. Update table (column)
+2. Update table (column, multiple column)
 3. Fetch rows ✅
 4. Insert rows ✅
-5. Search functionality
+5. Search functionality ✅
 6. Delete rows ✅
 7. Delete table ✅
 
@@ -27,6 +27,3 @@ Classes:
 2. Table class
 3. Row class
 4. DatabaseManager class
-
-Question:
-1. What all updates were possible? multiple col?

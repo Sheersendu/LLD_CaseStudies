@@ -21,6 +21,11 @@ public class Row {
 		}
 	}
 
+	public void updateColumnValue(int columnIndex, String columnValue)
+	{
+		this.columnValues[columnIndex] = columnValue;
+	}
+
 	private boolean isValidRowData(String[] rowValues)
 	{
 		if(rowValues.length != totalColumns)

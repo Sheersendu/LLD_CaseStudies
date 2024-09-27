@@ -74,6 +74,41 @@ public class Table {
 		}
 	}
 
+	public void update(String columnName, String columnValue) throws Exception
+	{
+	}
+
+	public void search(String searchColumnNames, String searchColumnValues) throws Exception
+	{
+		String[] filterColumnNames = searchColumnNames.split(",");
+		String[] filterColumnValues = searchColumnValues.split(",");
+		List<Integer> columnIndexes = new ArrayList<>();
+		int totalFilterColumns = filterColumnNames.length;
+		for(int index = 0; index<totalFilterColumns; index++)
+		{
+			Integer columnIndex = this.columnNames.get(filterColumnNames[index]);
+			if (columnIndex != null) {
+				columnIndexes.add(columnIndex);
+			}
+			else {
+				throw new Exception("Column doesn't exists!");
+			}
+		}
+		for(Row row: rows)
+		{
+			String[] columnValues = row.getColumnValues();
+			boolean isResult = true;
+			for(int index=0; index<totalFilterColumns; index++)
+			{
+				if(!columnValues[columnIndexes.get(index)].equals(filterColumnValues[index]))
+					isResult = false;
+			}
+			if(isResult)
+				System.out.println(Arrays.stream(row.getColumnValues()).toList());
+		}
+
+	}
+
 	public void getRows()
 	{
 		for(int index = 0; index < rows.size(); index++)
