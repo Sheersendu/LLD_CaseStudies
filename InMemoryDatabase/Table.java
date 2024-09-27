@@ -74,39 +74,61 @@ public class Table {
 		}
 	}
 
-	public void update(String columnName, String columnValue) throws Exception
+	public void update(String searchColumnNames, String searchColumnValues, String columnNames, String columnValues) throws Exception
 	{
+		List<Row> result = search(searchColumnNames, searchColumnValues);
+		if(!result.isEmpty())
+		{
+			String[] updateColumnNames = columnNames.split(",");
+			String[] updateColumnValues = columnValues.split(",");
+			int totalUpdateColumns = updateColumnNames.length;
+			List<Integer> columnIndexes = getColumnIndexes(updateColumnNames);
+			for(Row row: result) {
+				for (int index = 0; index < totalUpdateColumns; index++) {
+					row.updateColumnValue(columnIndexes.get(index), updateColumnValues[index]);
+				}
+			}
+		}
 	}
 
-	public void search(String searchColumnNames, String searchColumnValues) throws Exception
+	public List<Row> search(String searchColumnNames, String searchColumnValues) throws Exception
 	{
 		String[] filterColumnNames = searchColumnNames.split(",");
 		String[] filterColumnValues = searchColumnValues.split(",");
-		List<Integer> columnIndexes = new ArrayList<>();
+		List<Integer> columnIndexes = getColumnIndexes(filterColumnNames);
+		List<Row> resultRows = new ArrayList<>();
 		int totalFilterColumns = filterColumnNames.length;
-		for(int index = 0; index<totalFilterColumns; index++)
-		{
-			Integer columnIndex = this.columnNames.get(filterColumnNames[index]);
-			if (columnIndex != null) {
-				columnIndexes.add(columnIndex);
-			}
-			else {
-				throw new Exception("Column doesn't exists!");
-			}
-		}
 		for(Row row: rows)
 		{
 			String[] columnValues = row.getColumnValues();
 			boolean isResult = true;
 			for(int index=0; index<totalFilterColumns; index++)
 			{
-				if(!columnValues[columnIndexes.get(index)].equals(filterColumnValues[index]))
+				if (!columnValues[columnIndexes.get(index)].equals(filterColumnValues[index])) {
 					isResult = false;
+					break;
+				}
 			}
-			if(isResult)
-				System.out.println(Arrays.stream(row.getColumnValues()).toList());
+			if(isResult) {
+				resultRows.add(row);
+			}
 		}
+		return resultRows;
 
+	}
+
+	private List<Integer> getColumnIndexes(String[] columnNames) throws Exception
+	{
+		List<Integer> columnIndexes = new ArrayList<>();
+		for (String columnName : columnNames) {
+			Integer columnIndex = this.columnNames.get(columnName);
+			if (columnIndex != null) {
+				columnIndexes.add(columnIndex);
+			} else {
+				throw new Exception("Column doesn't exists!");
+			}
+		}
+		return columnIndexes;
 	}
 
 	public void getRows()

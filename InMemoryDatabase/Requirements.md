@@ -1,7 +1,7 @@
 Scope:
 
 1. Create table ✅
-2. Update table (column, multiple column)
+2. Update table (column, multiple column)✅
 3. Fetch rows ✅
 4. Insert rows ✅
 5. Search functionality ✅
