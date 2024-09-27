@@ -16,14 +16,13 @@ Assumption:
 4. The first column value in a row is the primary key
 5. All the values are of type string
 
-Approach:
+Improvements:
 
-1. Since search functionality is required we can choose hashMap for efficient searching
-2. We can make table object using builder design pattern as multiple params + once object created it should be immutable
+1. We can make table object using builder design pattern as multiple params + once object created it should be immutable
 
 Classes:
 
-1. Database class
-2. Table class
-3. Row class
-4. DatabaseManager class
+1. Database (Has Tables)
+2. Table (Has Rows)
+3. Row
+4. DatabaseManager
