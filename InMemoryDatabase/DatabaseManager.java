@@ -6,13 +6,25 @@ public class DatabaseManager {
 	public static void main(String[] args) {
 		Database database = new Database("MyDatabase");
 		Table table = database.createTable("Table1");
-		table.addColumns("Column1,Column2,Column3");
+		try {
+			table.addColumns("Column1,Column2,Column3");
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 
 		// Insert Row
-		table.insertData("R1D1,R1D2,R1D3");
-		table.insertData("R2D1,R2D2,R2D3");
-		table.insertData("R3D1,R2D2,R3D3");
-		table.insertData("R4D1,R1D2,R1D3");
+		try {
+			table.insertData("R1D1,R1D2,R1D3");
+			table.insertData("R2D1,R2D2,R2D3");
+			table.insertData("R3D1,R2D2,R3D3");
+			table.insertData("R4D1,R1D2,R1D3");
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 
 		// Fetch Row
 		try {
