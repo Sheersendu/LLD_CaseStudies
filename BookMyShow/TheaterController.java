@@ -11,6 +11,11 @@ public class TheaterController {
 	Map<City, List<Theater>> cityToTheaterMap;
 	List<Theater> allTheaters;
 
+	public TheaterController()
+	{
+		this.cityToTheaterMap = new HashMap<>();
+		this.allTheaters = new ArrayList<>();
+	}
 	public void addTheater(City city, Theater theater)
 	{
 		this.cityToTheaterMap.get(city).add(theater);

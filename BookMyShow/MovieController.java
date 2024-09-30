@@ -2,12 +2,20 @@ package BookMyShow;
 
 import BookMyShow.Enum.City;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MovieController {
 	Map<City, List<Movie>> cityToMovieMap;
 	List<Movie> allMovies;
+
+	public MovieController()
+	{
+		this.cityToMovieMap = new HashMap<>();
+		this.allMovies = new ArrayList<>();
+	}
 	
 	public void addMovie(City city, Movie movie)
 	{
