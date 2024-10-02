@@ -1,7 +1,6 @@
 package BookMyShow;
 
 import BookMyShow.Enum.City;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

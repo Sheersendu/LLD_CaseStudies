@@ -1,6 +1,7 @@
 package BookMyShow;
 
 import BookMyShow.Enum.City;
+import BookMyShow.Enum.PaymentStatus;
 import BookMyShow.Enum.SeatCategory;
 
 import java.util.ArrayList;
@@ -8,24 +9,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class BookMyShow {
 	MovieController movieController;
 	TheaterController theaterController;
+	Random rand;
 	public BookMyShow()
 	{
 		this.movieController = new MovieController();
 		this.theaterController = new TheaterController();
+		rand = new Random();
 		initialize();
 	}
 
 	public static void main(String[] args) {
+		BookMyShow bookMyShow = new BookMyShow();
+		bookMyShow.createBooking("HYDERABAD", "Movie 1");
 	}
 
 	public void createBooking(String city, String movieName)
 	{
+		// City and Movie Selection
 		Movie userSelectedMovie = this.movieController.getMovieByName(movieName);
 		City userSelectedCity = City.valueOf(city);
 		List<Movie> availableMovies = this.movieController.getMovieByCity(userSelectedCity);
+		for(Movie movie: availableMovies) {
+			System.out.println(movie.getName());
+		}
 		boolean movieAvailableInUserCity = false;
 		for(Movie movie: availableMovies) {
 			if(movie.getId() == userSelectedMovie.getId())
@@ -38,9 +49,70 @@ public class BookMyShow {
 		{
 			throw new RuntimeException("Movie not available in " + city);
 		}
-		Map<Theater, List<Show>> TheaterWiseShows = this.theaterController.getAllShows(userSelectedCity, userSelectedMovie);
+
+		// Theater selection
+		Map<Theater, List<Show>> theaterWiseShows = this.theaterController.getAllShows(userSelectedCity, userSelectedMovie);
+		for(Theater theater: theaterWiseShows.keySet())
+		{
+			System.out.println(theater.id);
+			for(Show show: theaterWiseShows.get(theater))
+			{
+				System.out.println(show.movie.getName() + " - " + show.getScreen().getId() + " - " + show.getShowStartTime());
+			}
+			System.out.println("************************");
+		}
 		Theater userSelectedTheater = this.theaterController.allTheaters.getFirst();
-		
+
+		// Show Selection
+		Show userSelectedShow = userSelectedTheater.getAllShows().getFirst();
+
+		// Seat selection
+		int rowNumber = 1;
+		List<Integer> getAllBookedSeats = userSelectedShow.getBookedSeatIds();
+		if(getAllBookedSeats.contains(rowNumber))
+		{
+			throw new RuntimeException("Seat already booked!");
+		}
+		// Booking
+		else
+		{
+			List<Seat> allSeats = userSelectedShow.getScreen().getAllSeats();
+			for(Seat seat: allSeats) {
+				if(seat.getId() == rowNumber)
+				{
+					System.out.println(seat.getSeatCategory().toString());
+					Payment payment = new Payment(101, PaymentStatus.SUCCESS);
+					Booking booking = new Booking(abs(rand.nextInt()), List.of(seat), payment);
+					userSelectedShow.getBookedSeatIds().add(rowNumber);
+					System.out.println(booking.id);
+					System.out.println("Booking successful!");
+				}
+			}
+		}
+
+		// Seat selection
+		int rowNumber1 = 19;
+		List<Integer> getAllBookedSeats1 = userSelectedShow.getBookedSeatIds();
+		if(getAllBookedSeats1.contains(rowNumber1))
+		{
+			throw new RuntimeException("Seat already booked!");
+		}
+		// Booking
+		else
+		{
+			List<Seat> allSeats = userSelectedShow.getScreen().getAllSeats();
+			for(Seat seat: allSeats) {
+				if(seat.getId() == rowNumber1)
+				{
+					System.out.println(seat.getSeatCategory().toString());
+					Payment payment = new Payment(101, PaymentStatus.SUCCESS);
+					Booking booking = new Booking(rand.nextInt(), List.of(seat), payment);
+					userSelectedShow.getBookedSeatIds().add(rowNumber1);
+					System.out.println(booking.id);
+					System.out.println("Booking successful!");
+				}
+			}
+		}
 
 	}
 
@@ -70,6 +142,7 @@ public class BookMyShow {
 	{
 		// Theaters
 		Theater theater1 = new Theater(1, "Somewhere in the city");
+		this.theaterController.addTheater(City.BANGALORE, theater1);
 		theater1.setAllScreens(createScreens(2));
 		List<Show> theater1Shows = new ArrayList<>();
 		List<Movie> theater1AllMovies = this.movieController.getMovieByCity(theater1.getCity());
@@ -83,6 +156,7 @@ public class BookMyShow {
 		theater1.setAllShows(theater1Shows);
 
 		Theater theater2 = new Theater(2, "Somewhere in the city");
+		this.theaterController.addTheater(City.BANGALORE, theater2);
 		theater2.setAllScreens(createScreens(2));
 		List<Show> theater2Shows = new ArrayList<>();
 		List<Movie> theater2AllMovies = this.movieController.getMovieByCity(theater2.getCity());
@@ -96,6 +170,7 @@ public class BookMyShow {
 		theater2.setAllShows(theater2Shows);
 
 		Theater theater3 = new Theater(1, "Somewhere in the city");
+		this.theaterController.addTheater(City.KOLKATA, theater3);
 		theater3.setAllScreens(createScreens(2));
 		List<Show> theater3Shows = new ArrayList<>();
 		List<Movie> theater3AllMovies = this.movieController.getMovieByCity(theater3.getCity());
@@ -109,6 +184,7 @@ public class BookMyShow {
 		theater3.setAllShows(theater3Shows);
 
 		Theater theater4 = new Theater(2, "Somewhere in the city");
+		this.theaterController.addTheater(City.KOLKATA, theater4);
 		theater4.setAllScreens(createScreens(2));
 		List<Show> theater4Shows = new ArrayList<>();
 		List<Movie> theater4AllMovies = this.movieController.getMovieByCity(theater4.getCity());
@@ -122,6 +198,7 @@ public class BookMyShow {
 		theater4.setAllShows(theater4Shows);
 
 		Theater theater5 = new Theater(1, "Somewhere in the city");
+		this.theaterController.addTheater(City.HYDERABAD, theater5);
 		theater5.setAllScreens(createScreens(2));
 		List<Show> theater5Shows = new ArrayList<>();
 		List<Movie> theater5AllMovies = this.movieController.getMovieByCity(theater5.getCity());
@@ -133,19 +210,11 @@ public class BookMyShow {
 			theater5Shows.add(new Show(index, movie, theater5AllScreens.getLast(), 18));
 		}
 		theater5.setAllShows(theater5Shows);
-
-		// map to cities
-		this.theaterController.addTheater(City.BANGALORE, theater1);
-		this.theaterController.addTheater(City.BANGALORE, theater2);
-		this.theaterController.addTheater(City.KOLKATA, theater3);
-		this.theaterController.addTheater(City.KOLKATA, theater4);
-		this.theaterController.addTheater(City.HYDERABAD, theater5);
 	}
 
 	private List<Screen> createScreens(int totalNumberOfScreens)
 	{
 		List<Screen> screens = new ArrayList<>();
-		Random rand = new Random();
 		for(int index = 1; index<= totalNumberOfScreens; index++)
 		{
 			Screen screen = new Screen();
@@ -184,8 +253,4 @@ public class BookMyShow {
 		return seats;
 	}
 
-	private Show createShow(int id, Movie movie, Screen screen, int showStartTime)
-	{
-		return new Show(id, movie, screen, showStartTime);
-	}
 }

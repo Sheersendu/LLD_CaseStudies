@@ -19,9 +19,10 @@ public class MovieController {
 	
 	public void addMovie(City city, Movie movie)
 	{
-		this.cityToMovieMap.getOrDefault(city, new ArrayList<>()).add(movie);
-		System.out.println(this.cityToMovieMap.get(city));
-		this.allMovies.add(movie);
+		allMovies.add(movie);
+		List<Movie> movies = cityToMovieMap.getOrDefault(city, new ArrayList<>());
+		movies.add(movie);
+		cityToMovieMap.put(city, movies);
 	}
 
 	public Movie getMovieByName(String movieName)
