@@ -19,7 +19,9 @@ public class MovieController {
 	
 	public void addMovie(City city, Movie movie)
 	{
-		this.cityToMovieMap.get(city).add(movie);
+		this.cityToMovieMap.getOrDefault(city, new ArrayList<>()).add(movie);
+		System.out.println(this.cityToMovieMap.get(city));
+		this.allMovies.add(movie);
 	}
 
 	public Movie getMovieByName(String movieName)

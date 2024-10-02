@@ -18,7 +18,10 @@ public class TheaterController {
 	}
 	public void addTheater(City city, Theater theater)
 	{
-		this.cityToTheaterMap.get(city).add(theater);
+		this.cityToTheaterMap.getOrDefault(city, new ArrayList<>()).add(theater);
+		System.out.println(this.cityToTheaterMap.get(city));
+		this.allTheaters.add(theater);
+		theater.setCity(city);
 	}
 
 	public Map<Theater, List<Show>> getAllShows(City city, Movie movie)
